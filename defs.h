@@ -7,6 +7,7 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <ctype.h>
+#include <signal.h>
 
 #define SIZE 100
 #define MAX_ARGS 10

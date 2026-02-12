@@ -50,3 +50,18 @@ char *parse_commandline_argument(char *string)
 
 	return string;
 }
+
+//prints the coloured pwd on temrinal
+void printPrompt() {
+    char cwd[PATH_MAX];
+    const char* green = "\033[0;32m";
+    const char* reset = "\033[0m";
+
+    if (getcwd(cwd, sizeof(cwd)) != NULL) {
+        write(STDOUT_FILENO, green, strlen(green));
+        write(STDOUT_FILENO, "pavan:<", 7);
+        write(STDOUT_FILENO, cwd, strlen(cwd));
+        write(STDOUT_FILENO, ">$", 2);
+        write(STDOUT_FILENO, reset, strlen(reset));
+    }
+}

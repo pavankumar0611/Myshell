@@ -2,7 +2,6 @@
 
 //For the given shell exectuable commands check in path environment variable
 //appended to absolute path save in new_appended_path
-
 char *different_path_string(const char **string, char *new_appended_path, char *commandline_argument_passed)
 {
     int  i = 0;

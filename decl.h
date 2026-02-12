@@ -9,6 +9,7 @@ char *parse_commandline_argument(char *string);
 void trim_trailing_space(char *s);
 int to_check_if_the_string_contains_redirection_to_file (char *original_string , int tocheck_redirection ,char *outfile_name);
 void signalhandler(int sig);
+void printPrompt(void);
 
 //path.c
 char *different_path_string(const char **string, char *new_appended_path, char *commandline_argument_passed);
@@ -16,3 +17,9 @@ char *different_path_string(const char **string, char *new_appended_path, char *
 //split.c
 void split(char *string, const char *delimiter, char args[MAX_ARGS][MAX_LEN]);
 int build_cmds(char args[MAX_ARGS][MAX_LEN], char *cmds[MAX_CMDS][MAX_ARGS]);
+
+//signal.c
+void signalHandler(int sig);
+void set_shell_mode(void);
+void set_parent_exec_mode(void);
+void set_child_exec_mode(void);

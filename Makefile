@@ -1,9 +1,9 @@
-SRCS=pipe.c main.c split.c misc.c path.c
+SRCS=pipe.c main.c split.c misc.c path.c signal.c
 
 
-running_executanble : $(SRCS)
-					gcc -g $(SRCS) -o running_executanble
+running_executable : $(SRCS)
+					gcc -g $(SRCS) -o running_executable
 
 clean:
-		rm f -f *.o *.out  running_executanble
+		rm f -f *.o *.out  running_executable
 
