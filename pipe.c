@@ -56,3 +56,47 @@ void exec_pipeline(char *cmds[MAX_CMDS][MAX_ARGS], int n_cmds) {
 		set_shell_mode();
 	}
 }
+
+//function to redirect output to a file
+void execute_simple(char *string, int generating_output_to_file, char *output_file_name)
+{
+	set_parent_exec_mode();
+	pid_t pid = fork();
+
+	if (pid == 0) {
+
+		char *args[2];
+		args[0] = string;
+		args[1] = NULL;
+
+		if (generating_output_to_file) {
+			FILE *fp = freopen(output_file_name, "w", stdout);
+			if (fp == NULL)
+				printf("Error generating the output into a file\n");
+		}
+
+		set_child_exec_mode();
+		execv(args[0], args);
+	}
+	else if (pid > 0) {
+		wait(NULL);
+		set_shell_mode();
+	}
+}
+
+//Detects and execute a pipiline command
+//example :  ls - l | wc
+int handle_pipeline(char *string)
+{
+	if (!contains_pipe(string))
+		return 0;
+
+	char argument[MAX_ARGS][MAX_LEN];
+	char *cmds[MAX_CMDS][MAX_ARGS];
+
+	split(string, " ", argument);		//split string into token
+	int n_cmds = build_cmds(argument, cmds);
+	exec_pipeline(cmds, n_cmds);
+
+	return 1;
+}

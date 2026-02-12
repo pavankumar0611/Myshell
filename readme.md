@@ -19,11 +19,13 @@ The shell supports the following operations:
 
 Compile the program using:
 
-gcc -Wall -Wextra -o myshell myshell.c
+gcc -g pipe.c main.c split.c misc.c path.c signal.c
+or
+make
 
 This will generate the executable file:
 
-myshell
+run_executable
 
 ---
 
