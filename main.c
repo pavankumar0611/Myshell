@@ -156,29 +156,29 @@ int main () {
 
 	set_shell_mode();
 	while (1)
-		{
+	{
 
-			char string[SIZE];
+		char string[SIZE];
 
-			if (getcwd(buffer, SIZE) != NULL)
-				printPrompt();
+		if (getcwd(buffer, SIZE) != NULL)
+			printPrompt();
 
-			errno = 0;
-			if (fgets(string, sizeof(string), stdin) == NULL) {
-				if (errno == EINTR) {
-					clearerr(stdin);
-					continue;
-				}
-				break;
-			}
-
-			string[strcspn(string, "\n")] = '\0';		//remove newline from character
-
-			// to ignore the empty input
-			if (string[0] == '\0')
+		errno = 0;
+		if (fgets(string, sizeof(string), stdin) == NULL) {
+			if (errno == EINTR) {
+				clearerr(stdin);
 				continue;
-			
-			//execute command
-			execute_command(string);
+			}
+			break;
 		}
+
+		string[strcspn(string, "\n")] = '\0';		//remove newline from character
+
+		// to ignore the empty input
+		if (string[0] == '\0')
+			continue;
+
+		//execute command
+		execute_command(string);
+	}
 }

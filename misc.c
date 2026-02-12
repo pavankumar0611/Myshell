@@ -1,17 +1,17 @@
 #include "defs.h"
 
 void trim_trailing_space(char *s) {
-    int  len = strlen(s);
-    /* for removing trailing spaces */
-    while (len > 0 && isspace((unsigned char)s[len - 1])) {
-        s[--len] = '\0';
-    }   
+	int  len = strlen(s);
+	/* for removing trailing spaces */
+	while (len > 0 && isspace((unsigned char)s[len - 1])) {
+		s[--len] = '\0';
+	}   
 }
 
 //Check if the user passed the redirection to a file and save the file name if passed.
 int to_check_if_the_string_contains_redirection_to_file (char *original_string , int tocheck_redirection ,char *outfile_name) {
 
-    char *temp_string = original_string;
+	char *temp_string = original_string;
 
 	int i = 0;
 	while(temp_string[i++] != '\0') {
@@ -53,15 +53,15 @@ char *parse_commandline_argument(char *string)
 
 //prints the coloured pwd on temrinal
 void printPrompt() {
-    char cwd[PATH_MAX];
-    const char* green = "\033[0;32m";
-    const char* reset = "\033[0m";
+	char cwd[PATH_MAX];
+	const char* green = "\033[0;32m";
+	const char* reset = "\033[0m";
 
-    if (getcwd(cwd, sizeof(cwd)) != NULL) {
-        write(STDOUT_FILENO, green, strlen(green));
-        write(STDOUT_FILENO, "pavan:<", 7);
-        write(STDOUT_FILENO, cwd, strlen(cwd));
-        write(STDOUT_FILENO, ">$", 2);
-        write(STDOUT_FILENO, reset, strlen(reset));
-    }
+	if (getcwd(cwd, sizeof(cwd)) != NULL) {
+		write(STDOUT_FILENO, green, strlen(green));
+		write(STDOUT_FILENO, "pavan:<", 7);
+		write(STDOUT_FILENO, cwd, strlen(cwd));
+		write(STDOUT_FILENO, ">$", 2);
+		write(STDOUT_FILENO, reset, strlen(reset));
+	}
 }
