@@ -23,7 +23,7 @@ void split(char *string, const char *delimiter, char args[MAX_ARGS][MAX_LEN]);
 int build_cmds(char args[MAX_ARGS][MAX_LEN], char *cmds[MAX_CMDS][MAX_ARGS]);
 
 //signal.c
-void signalHandler(int sig);
-void set_shell_mode(void);
-void set_parent_exec_mode(void);
-void set_child_exec_mode(void);
+void custom_signalHandler(int sig);
+void set_customsignal_mode(void);
+void set_signalIgnore_mode(void);
+void set_signalDefault_mode(void);

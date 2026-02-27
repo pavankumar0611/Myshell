@@ -75,7 +75,6 @@ int handle_path_execution(char *string)
 	char fullpath_of_directory[SIZE];
 	char *temporary_full_path;
 	char *args[5];
-	int status = 0;
 
 	while (*environment_path != '\0') {
 
@@ -97,27 +96,22 @@ int handle_path_execution(char *string)
 		//To check if the executable exists in this PATH directory
 		if (access(temporary_full_path, X_OK) == 0) {
 
-			status = 1;
-			set_parent_exec_mode();
+			set_signalIgnore_mode();
 
 			pid_t pid = fork();
 			if (pid == 0) {
-				set_child_exec_mode();
+				set_signalDefault_mode();
 				execv(args[0], args);
 			}
 			else if (pid > 0) {
 				wait(NULL);
-				set_shell_mode();
+				set_customsignal_mode();
 			}
 
 			printf("*************found at %s****************\n",
 					temporary_full_path);
-			break;
+			return 1;
 		}
 	}
-
-	if (!status)
-		printf("the %s not found\n", string);
-
-	return status;
+	return 0;
 }

@@ -20,11 +20,11 @@ void exec_pipeline(char *cmds[MAX_CMDS][MAX_ARGS], int n_cmds) {
 		if (i < n_cmds - 1)
 			pipe(fd);
 
-		set_parent_exec_mode();
+		set_signalIgnore_mode();
 		int  pid = fork();
 
 		if (pid == 0) { // child
-			set_child_exec_mode();
+			set_signalDefault_mode();
 
 			if (prev_fd != -1) {                     // if there is a input coming form a previous pipe
 				dup2(prev_fd, STDIN_FILENO);		//redirect it to stdin
@@ -53,15 +53,21 @@ void exec_pipeline(char *cmds[MAX_CMDS][MAX_ARGS], int n_cmds) {
 
 	for (int i = 0; i < n_cmds; i++) {
 		wait(NULL);
-		set_shell_mode();
+		set_customsignal_mode();
 	}
 }
 
 //function to redirect output to a file
 void execute_simple(char *string, int generating_output_to_file, char *output_file_name)
 {
-	set_parent_exec_mode();
+	if(access(string , X_OK) != 0) {
+		printf("%s not found\n",string);
+		return;
+	}
+
+	set_signalIgnore_mode();
 	pid_t pid = fork();
+
 
 	if (pid == 0) {
 
@@ -75,12 +81,12 @@ void execute_simple(char *string, int generating_output_to_file, char *output_fi
 				printf("Error generating the output into a file\n");
 		}
 
-		set_child_exec_mode();
+		set_signalDefault_mode();
 		execv(args[0], args);
 	}
 	else if (pid > 0) {
 		wait(NULL);
-		set_shell_mode();
+		set_customsignal_mode();
 	}
 }
 

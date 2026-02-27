@@ -28,7 +28,7 @@ int main () {
 
 	char buffer[SIZE];
 
-	set_shell_mode();
+	set_customsignal_mode();
 	while (1)
 	{
 
